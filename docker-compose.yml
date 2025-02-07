@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  webforum.api:
+    image: ${DOCKER_REGISTRY-}webforum.api
+    container_name: webforum.api
+    environment:
+      - IdentitySettings__ModeratorPassword=Mod3r@tor123!
+    ports:
+      - "8966:80"
+    networks:
+      - forum-network
+    depends_on:
+      - webforum.db
+      - webforum.cache
+      - webforum.seq
+    build:
+      context: .
+      dockerfile: src/WebForum.Api/Dockerfile
+
+  webforum.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: webforum.db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=61tagstdgdtfsgkF!@
+    ports:
+      - "8967:1433"
+    networks:
+      - forum-network
+  
+  webforum.seq:
+    image: datalust/seq
+    container_name: webforum.seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "8968:80"
+    volumes:
+      - seq_data:/data
+    networks:
+      - forum-network
+
+  webforum.cache:
+    image: redis
+    container_name: webforum.cache
+    ports:
+      - "8969:6379"
+    networks:
+      - forum-network
+
+volumes:
+  seq_data:
+
+networks:
+  forum-network:
+    driver: bridge
