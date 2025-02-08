@@ -5,6 +5,7 @@ using WebForum.Infrastructure.Persistence.Interceptors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using WebForum.Infrastructure.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -15,11 +16,17 @@ public static class ConfigureServices
         IConfiguration configuration)
     {
         services.SetupIdentity();
+        services.SetupServices();
         services.SetupDatabase(configuration);
         services.SetupCaching(configuration);
         services.SetupRepositories();
 
         return services;
+    }
+
+    private static void SetupServices(this IServiceCollection services)
+    {
+        services.AddScoped<IIdentityService, IdentityService>();
     }
 
     private static void SetupDatabase(this IServiceCollection services, IConfiguration configuration)

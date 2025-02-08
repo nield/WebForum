@@ -2,7 +2,7 @@ using WebForum.Api.Configurations;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using System.Diagnostics.CodeAnalysis;
-using WebForum.Domain.Entities;
+using WebForum.Api.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.ConfigureLogging();
@@ -41,7 +41,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 
 app.MapGet("/ping", () => "Working as expected");
 
-app.MapIdentityApi<User>();
+app.MapIdentityApi();
 
 await app.ApplyMigrations();
 

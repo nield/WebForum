@@ -1,6 +1,6 @@
 ﻿namespace WebForum.Api.Models;
 
-public class TagPost
+public class TagPostRequest
 {
     public List<string> Tags { get; set; }
 }

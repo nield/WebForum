@@ -10,4 +10,5 @@ public class Post : BaseAuditableEntity
 
     public virtual ICollection<Comment> Comments { get; set; }
     public virtual ICollection<Like> Likes { get; set; }
+    public virtual User User { get; set; }
 }

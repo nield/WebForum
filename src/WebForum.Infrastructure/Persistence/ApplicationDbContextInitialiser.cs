@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebForum.Application.Common.Constants;
+using WebForum.Application.Common.Models;
 using WebForum.Application.Common.Settings;
 
 namespace WebForum.Infrastructure.Persistence;
@@ -13,13 +14,13 @@ public class ApplicationDbContextInitialiser
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<User> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IIdentityService _identityService;
     private readonly IOptions<AppSettings> _appSettings;
 
     public ApplicationDbContextInitialiser(
         ApplicationDbContext context,
         UserManager<User> userManager,
-        RoleManager<IdentityRole> roleManager,
+        IIdentityService identityService,
         IOptions<AppSettings> appSettings,
         ILogger<ApplicationDbContextInitialiser> logger
     )
@@ -27,7 +28,7 @@ public class ApplicationDbContextInitialiser
         _logger = logger;
         _context = context;
         _userManager = userManager;
-        _roleManager = roleManager;
+        _identityService = identityService;
         _appSettings = appSettings;
     }
 
@@ -71,33 +72,48 @@ public class ApplicationDbContextInitialiser
 
         if (moderatorUser is null)
         {
-            var result = await _userManager.CreateAsync(new User
+            await _identityService.RegisterUser(new RegisterUserDto
             {
                 Email = UserConstants.ModeratorUsername,
-                UserName = UserConstants.ModeratorUsername,
-                EmailConfirmed = true,
-                TwoFactorEnabled = false
-            }, _appSettings.Value.IdentitySettings.ModeratorPassword);
+                Name = "Moderator",
+                Surname = "Moderator",
+                RoleName = RoleConstants.Moderator,
+                Password = _appSettings.Value.IdentitySettings.ModeratorPassword
+            });
+        }
 
-            if (result.Succeeded)
+        var standardUser1 = await _userManager.FindByNameAsync(UserConstants.StandardUsername1);
+
+        if (standardUser1 is null)
+        {
+            await _identityService.RegisterUser(new RegisterUserDto
             {
-                moderatorUser = await _userManager.FindByNameAsync(UserConstants.ModeratorUsername);
+                Email = UserConstants.StandardUsername1,
+                Name = "John",
+                Surname = "Doe",
+                RoleName = RoleConstants.Standard,
+                Password = _appSettings.Value.IdentitySettings.StandardPassword
+            });
+        }
 
-                if (!await _userManager.IsInRoleAsync(moderatorUser, RoleConstants.Moderator))
-                {
-                    await _userManager.AddToRoleAsync(moderatorUser, RoleConstants.Moderator);
-                }
-            }
+        var standardUser2 = await _userManager.FindByNameAsync(UserConstants.StandardUsername2);
+
+        if (standardUser2 is null)
+        {
+            await _identityService.RegisterUser(new RegisterUserDto
+            {
+                Email = UserConstants.StandardUsername2,
+                Name = "Jane",
+                Surname = "Doe",
+                RoleName = RoleConstants.Standard,
+                Password = _appSettings.Value.IdentitySettings.StandardPassword
+            });
         }
     }
 
     private async Task SeedRolesAsync()
     {
-        var moderatorRole = await _roleManager.FindByNameAsync(RoleConstants.Moderator);
-
-        if (moderatorRole is null)
-        {
-            await _roleManager.CreateAsync(new IdentityRole(RoleConstants.Moderator));
-        }
+        await _identityService.AddRole(RoleConstants.Moderator);
+        await _identityService.AddRole(RoleConstants.Standard);
     }
 }

@@ -133,7 +133,7 @@ public class PostsController : ControllerBase
     [HttpPost("{id}/tags")]
     [Authorize(Roles = RoleConstants.Moderator)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> TagPost(long id, [FromBody]TagPost request, CancellationToken cancellationToken)
+    public async Task<IActionResult> TagPost(long id, [FromBody]TagPostRequest request, CancellationToken cancellationToken)
     {
         var command = new TagPostCommand
         {

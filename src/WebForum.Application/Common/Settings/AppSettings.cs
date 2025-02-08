@@ -28,4 +28,5 @@ public class Performance
 public class IdentitySettings
 {
     public string ModeratorPassword { get; set; }
+    public string StandardPassword { get; set; }
 }

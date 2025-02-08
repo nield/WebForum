@@ -30,5 +30,9 @@ public class PostConfiguration : BaseConfiguration<Post>
         builder.HasMany(x => x.Likes)
             .WithOne(x => x.Post)
             .HasForeignKey(x => x.PostId);
+
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.Posts)
+            .HasForeignKey(x => x.CreatedBy);
     }
 }
