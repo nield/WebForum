@@ -6,6 +6,8 @@ namespace WebForum.Infrastructure.Persistence;
 [ExcludeFromCodeCoverage]
 public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbContext
 {
+    public const string MigrationTableName = "__EFMigrationsHistory";
+
     #region DbSets
 
     public DbSet<Post> Posts => Set<Post>();

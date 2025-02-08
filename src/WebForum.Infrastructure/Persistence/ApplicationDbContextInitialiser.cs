@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebForum.Application.Common.Constants;
@@ -16,12 +18,14 @@ public class ApplicationDbContextInitialiser
     private readonly UserManager<User> _userManager;
     private readonly IIdentityService _identityService;
     private readonly IOptions<AppSettings> _appSettings;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
     public ApplicationDbContextInitialiser(
         ApplicationDbContext context,
         UserManager<User> userManager,
         IIdentityService identityService,
         IOptions<AppSettings> appSettings,
+        IWebHostEnvironment hostEnvironment,
         ILogger<ApplicationDbContextInitialiser> logger
     )
     {
@@ -30,6 +34,7 @@ public class ApplicationDbContextInitialiser
         _userManager = userManager;
         _identityService = identityService;
         _appSettings = appSettings;
+        _hostEnvironment = hostEnvironment;
     }
 
     public async Task MigrateDatabaseAsync()
@@ -58,6 +63,9 @@ public class ApplicationDbContextInitialiser
             await SeedRolesAsync();
 
             await SeedUsersAsync();
+
+            await SeedTestData();
+            
         }
         catch (Exception ex)
         {
@@ -66,8 +74,59 @@ public class ApplicationDbContextInitialiser
         }
     }
 
+    private async Task SeedTestData()
+    {
+        if (!_hostEnvironment.IsTest()) return;
+        if (await _context.Posts.AnyAsync()) return;
+
+        _context.Posts.Add(new Post
+        {
+            Title = "Test Title",
+            Content = "Test Content",
+            CreatedDateTime = DateTimeOffset.Now,
+            Comments =
+            [
+                new Comment
+                {
+                    Content = "Comment1",
+                    CreatedDateTime = DateTimeOffset.Now
+                },
+                new Comment
+                {
+                    Content = "Comment2",
+                    CreatedDateTime = DateTimeOffset.Now
+                }
+            ],
+            Likes =
+            [
+                new Like()
+            ]
+        });
+
+        await _context.SaveChangesAsync();
+    }
+
     private async Task SeedUsersAsync()
     {
+        if (_hostEnvironment.IsTest())
+        {
+            var integrationTestUser1 = await _userManager.FindByIdAsync(UserConstants.IntegrationTestUserId);
+
+            if (integrationTestUser1 is null)
+            {
+                await _userManager.CreateAsync(new User
+                {
+                    Id = UserConstants.IntegrationTestUserId,
+                    Email = UserConstants.IntegrationTestUsername,
+                    UserName = UserConstants.IntegrationTestUsername,
+                    Name = "Integration",
+                    Surname = "User"
+                }, _appSettings.Value.IdentitySettings.StandardPassword);
+            }
+            
+            return;
+        }
+
         var moderatorUser = await _userManager.FindByNameAsync(UserConstants.ModeratorUsername);
 
         if (moderatorUser is null)
