@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.BearerToken;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
@@ -14,6 +15,7 @@ public static class IdentityExtensions
     /// </summary>
     /// <param name="endpoints"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     public static IEndpointConventionBuilder MapIdentityApi(this IEndpointRouteBuilder endpoints)
     {
         var routeGroup = endpoints.MapGroup("api/auth")
