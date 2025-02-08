@@ -10,7 +10,6 @@ public static class HealthChecks
     {
         services
             .AddHealthChecks()
-            .AddDbContextCheck<ApplicationDbContext>("Database connectivity")
-            .AddRedis(configuration["RedisOptions:ConnectionString"], "Redis Connectivity");
+            .AddDbContextCheck<ApplicationDbContext>("Database connectivity");
     }
 }

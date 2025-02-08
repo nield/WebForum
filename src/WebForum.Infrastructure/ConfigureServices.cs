@@ -18,7 +18,6 @@ public static class ConfigureServices
         services.SetupIdentity();
         services.SetupServices();
         services.SetupDatabase(configuration);
-        services.SetupCaching(configuration);
         services.SetupRepositories();
 
         return services;
@@ -77,22 +76,5 @@ public static class ConfigureServices
                                     .AddClasses(c => c.AssignableTo(typeof(IRepository<>)))
                                     .AsImplementedInterfaces()
                                     .WithScopedLifetime());
-    }
-
-    private static void SetupCaching(this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        if (!string.IsNullOrEmpty(configuration["RedisOptions:ConnectionString"]))
-        {
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration["RedisOptions:ConnectionString"];
-                options.InstanceName = configuration["RedisOptions:InstanceName"];
-            });
-        }
-        else
-        {
-            services.AddDistributedMemoryCache();
-        }
     }
 }

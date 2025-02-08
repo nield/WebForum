@@ -6,13 +6,13 @@ services:
     container_name: webforum.api
     environment:
       - IdentitySettings__ModeratorPassword=Mod3r@tor123!
+      - IdentitySettings__StandardPassword=St@nd@rd123!
     ports:
       - "8966:80"
     networks:
       - forum-network
     depends_on:
       - webforum.db
-      - webforum.cache
       - webforum.seq
     build:
       context: .
@@ -38,14 +38,6 @@ services:
       - "8968:80"
     volumes:
       - seq_data:/data
-    networks:
-      - forum-network
-
-  webforum.cache:
-    image: redis
-    container_name: webforum.cache
-    ports:
-      - "8969:6379"
     networks:
       - forum-network
 
