@@ -9,6 +9,7 @@ public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbConte
     #region DbSets
 
     public DbSet<Post> Posts => Set<Post>();
+    public DbSet<Comment> Comments => Set<Comment>();
 
     #endregion DbSets
 
