@@ -13,5 +13,9 @@ public class LikeConfiguration : BaseConfiguration<Like>
         builder.Property(x => x.PostId).IsRequired();
 
         builder.HasIndex(x => x.PostId);
+
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.Likes)
+            .HasForeignKey(x => x.CreatedBy);
     }
 }

@@ -15,5 +15,9 @@ public class CommentConfiguration : BaseConfiguration<Comment>
         builder.Property(x => x.PostId).IsRequired();
 
         builder.HasIndex(x => x.PostId);
+
+        builder.HasOne(x => x.User)
+            .WithMany(x => x.Comments)
+            .HasForeignKey(x => x.CreatedBy);
     }
 }
