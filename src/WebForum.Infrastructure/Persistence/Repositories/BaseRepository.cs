@@ -38,6 +38,11 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default)
+    {
+        return await _dbSet.AnyAsync(x => x.Id == id, cancellationToken);
+    }
+
     public async Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
         var entity = await _dbSet.FindAsync(new object[] { id }, cancellationToken);

@@ -24,8 +24,8 @@ public static class ConfigureServices
 
     private static void SetupDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<AuditableEntitySaveChangesInterceptor>();
-        services.AddScoped<DispatchDomainEventsInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntitySaveChangesInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         services.AddScoped<ApplicationDbContextInitialiser>();
 
         services.AddScoped<IApplicationDbContext>(provider =>

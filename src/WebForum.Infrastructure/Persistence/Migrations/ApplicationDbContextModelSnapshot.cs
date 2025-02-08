@@ -186,7 +186,37 @@ namespace WebForum.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("PostComments", (string)null);
+                });
+
+            modelBuilder.Entity("WebForum.Domain.Entities.Like", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedDateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("LastModifiedDateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<long>("PostId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostLikes", (string)null);
                 });
 
             modelBuilder.Entity("WebForum.Domain.Entities.Post", b =>
@@ -225,7 +255,7 @@ namespace WebForum.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Post", (string)null);
                 });
 
             modelBuilder.Entity("WebForum.Domain.Entities.User", b =>
@@ -355,9 +385,22 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("WebForum.Domain.Entities.Like", b =>
+                {
+                    b.HasOne("WebForum.Domain.Entities.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("WebForum.Domain.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

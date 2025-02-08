@@ -2,15 +2,13 @@
 
 namespace WebForum.Infrastructure.Persistence.Configurations;
 
-public class CommentConfiguration : BaseConfiguration<Comment>
+public class LikeConfiguration : BaseConfiguration<Like>
 {
-    public override string TableName => "PostComments";
+    public override string TableName => "PostLikes";
 
-    public override void Configure(EntityTypeBuilder<Comment> builder)
+    public override void Configure(EntityTypeBuilder<Like> builder)
     {
         base.Configure(builder);
-
-        builder.Property(x => x.Content).IsRequired();
 
         builder.Property(x => x.PostId).IsRequired();
 

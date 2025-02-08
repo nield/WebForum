@@ -9,4 +9,5 @@ public class Post : BaseAuditableEntity
     public List<string> Tags { get; set; } = [];
 
     public virtual ICollection<Comment> Comments { get; set; }
+    public virtual ICollection<Like> Likes { get; set; }
 }

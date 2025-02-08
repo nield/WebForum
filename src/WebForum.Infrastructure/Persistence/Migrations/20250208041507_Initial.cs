@@ -51,7 +51,7 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Post",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -66,7 +66,7 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +176,7 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "PostComments",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -190,11 +190,34 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.PrimaryKey("PK_PostComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Posts_PostId",
+                        name: "FK_PostComments_Post_PostId",
                         column: x => x.PostId,
-                        principalTable: "Posts",
+                        principalTable: "Post",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostLikes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModifiedDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostLikes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostLikes_Post_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Post",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -239,8 +262,13 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_PostId",
-                table: "Comments",
+                name: "IX_PostComments_PostId",
+                table: "PostComments",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostLikes_PostId",
+                table: "PostLikes",
                 column: "PostId");
         }
 
@@ -263,7 +291,10 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "PostComments");
+
+            migrationBuilder.DropTable(
+                name: "PostLikes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -272,7 +303,7 @@ namespace WebForum.Infrastructure.Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Post");
         }
     }
 }

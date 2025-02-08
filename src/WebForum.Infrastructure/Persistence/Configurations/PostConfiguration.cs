@@ -6,7 +6,7 @@ namespace WebForum.Infrastructure.Persistence.Configurations;
 [ExcludeFromCodeCoverage]
 public class PostConfiguration : BaseConfiguration<Post>
 {
-    public override string TableName => "Posts";
+    public override string TableName => "Post";
 
     public override void Configure(EntityTypeBuilder<Post> builder)
     {
@@ -24,6 +24,10 @@ public class PostConfiguration : BaseConfiguration<Post>
         builder.Property(x => x.Content).IsRequired();
 
         builder.HasMany(x => x.Comments)
+            .WithOne(x => x.Post)
+            .HasForeignKey(x => x.PostId);
+
+        builder.HasMany(x => x.Likes)
             .WithOne(x => x.Post)
             .HasForeignKey(x => x.PostId);
     }

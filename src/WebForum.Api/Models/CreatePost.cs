@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using WebForum.Application.Features.Posts.Commands.CreatePost;
 
 namespace WebForum.Api.Models;
 
@@ -19,5 +20,13 @@ public class CreatePostRequestValidator: AbstractValidator<CreatePostRequest>
     {
         RuleFor(x => x.Content).NotEmpty();
         RuleFor(x => x.Title).NotEmpty();
+    }
+}
+
+public class CreatePostMapper : Profile
+{
+    public CreatePostMapper()
+    {
+        CreateMap<CreatePostRequest, CreatePostCommand>();
     }
 }
