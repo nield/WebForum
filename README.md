@@ -1,3 +1,4 @@
+[![.NET](https://github.com/nield/WebForum/actions/workflows/dotnet.yml/badge.svg)](https://github.com/nield/WebForum/actions/workflows/dotnet.yml)
 # WebForum
 
 Assessment project for a Backend Developer position.
