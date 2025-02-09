@@ -21,11 +21,12 @@ public class GetCommentsWithPaginationMapper : Profile
 {
     public GetCommentsWithPaginationMapper()
     {
-        CreateMap<GetCommentsWithPaginationRequest, GetCommentsWithPaginationQuery>();
+        CreateMap<GetCommentsWithPaginationRequest, GetCommentsWithPaginationQuery>()
+            .ForMember(dest => dest.PostId, opt => opt.Ignore());
 
         CreateMap<GetCommentsWithPaginationDto, GetCommentsWithPaginationResponse>()
             .ForMember(dest => dest.CreatedDateTime, opt => opt.MapFrom(src => src.Comment.CreatedDateTime))
-            .ForMember(dest => dest.Author, opt => opt.MapFrom(src => $"{src.Comment.AuthorName} {src.Comment.AuthorSurname}" ))
+            .ForMember(dest => dest.Author, opt => opt.MapFrom(src => $"{src.Comment.AuthorName} {src.Comment.AuthorSurname}"))
             .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Comment.Content));
     }
 }
