@@ -1,0 +1,869 @@
+{
+	"info": {
+		"_postman_id": "b0a5ccf5-f68c-4dcf-8559-7f52666eb4e0",
+		"name": "WebForumApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29117766"
+	},
+	"item": [
+		{
+			"name": "StandardUser1",
+			"item": [
+				{
+					"name": "Login User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"StandardUser1_AccessToken\", jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"standard1@standard1.com\",\r\n  \"password\": \"St@nd@rd123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"StandardUser1_PostId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser1_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Test Title\",\r\n  \"content\": \"Super interesting post\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser1_PostId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"CommentId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser1_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"no it is not what\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser1_PostId}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser1_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tags\": [\r\n    \"well\", \r\n    \"done\",\r\n    \"shot\",\r\n    \"pp\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser1_PostId}}",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StandardUser2",
+			"item": [
+				{
+					"name": "Login User 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"StandardUser2_AccessToken\", jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"standard2@standard2.com\",\r\n  \"password\": \"St@nd@rd123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"StandardUser2_PostId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser2_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Test Title\",\r\n  \"content\": \"Super interesting post\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"CommentId\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser2_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"no it is not thst\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser2_PostId}}/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser2_PostId}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser2_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}/likes/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser1_PostId}}",
+								"likes",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser2_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}/likes/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser1_PostId}}",
+								"likes",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{StandardUser2_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tags\": [\r\n    \"well\", \r\n    \"done\",\r\n    \"shot\",\r\n    \"pp\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser2_PostId}}/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser2_PostId}}",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ModeratorUser",
+			"item": [
+				{
+					"name": "Login User Moderator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"ModeratorUser_AccessToken\", jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"mody@mody.com\",\r\n  \"password\": \"Mod3r@tor123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Tags To StandardUser1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ModeratorUser_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tags\": [\r\n    \"well\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser1_PostId}}",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Tags To StandardUser2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ModeratorUser_AccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tags\": [\r\n    \"well\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser2_PostId}}/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser2_PostId}}",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"john@doe.com\",\r\n  \"password\": \"string\",\r\n  \"name\": \"John\",\r\n  \"surname\": \"Doe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8966/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8966",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts with pagination",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8966/api/posts/?fromDate&toDate&author",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8966",
+					"path": [
+						"api",
+						"posts",
+						""
+					],
+					"query": [
+						{
+							"key": "fromDate",
+							"value": null
+						},
+						{
+							"key": "toDate",
+							"value": null
+						},
+						{
+							"key": "author",
+							"value": null
+						},
+						{
+							"key": "tags",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "tags",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comments with pagination",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8966/api/posts/{{StandardUser1_PostId}}/comments/?fromDate&toDate&author",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8966",
+					"path": [
+						"api",
+						"posts",
+						"{{StandardUser1_PostId}}",
+						"comments",
+						""
+					],
+					"query": [
+						{
+							"key": "fromDate",
+							"value": null
+						},
+						{
+							"key": "toDate",
+							"value": null
+						},
+						{
+							"key": "author",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
