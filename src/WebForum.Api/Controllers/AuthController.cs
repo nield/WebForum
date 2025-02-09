@@ -6,7 +6,6 @@ namespace WebForum.Api.Controllers;
 
 [Route("api/auth")]
 [ApiController]
-[AllowAnonymous]
 public class AuthController : ControllerBase
 {
     private readonly ISender _sender;
@@ -24,6 +23,7 @@ public class AuthController : ControllerBase
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RegisterUser([FromBody]RegisterUserRequest request, CancellationToken cancellationToken)

@@ -1,10 +1,12 @@
-﻿using FluentValidation.Results;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using WebForum.Application.Common.Exceptions;
 using WebForum.Application.Common.Models;
 
 namespace WebForum.Infrastructure.Services;
 
+[ExcludeFromCodeCoverage]
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<User> _userManager;

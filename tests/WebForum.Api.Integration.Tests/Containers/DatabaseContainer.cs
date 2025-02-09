@@ -1,9 +1,11 @@
-﻿using DotNet.Testcontainers.Builders;
+﻿using System.Diagnostics.CodeAnalysis;
+using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using Microsoft.Data.SqlClient;
 
 namespace WebForum.Api.Integration.Tests.Containers;
 
+[ExcludeFromCodeCoverage]
 internal sealed class DatabaseContainer : BaseContainer<DatabaseContainer>
 {
     private const string DatabaseName = "WebForumDb";

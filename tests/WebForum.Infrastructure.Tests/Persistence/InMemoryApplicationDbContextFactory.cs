@@ -1,6 +1,7 @@
 ﻿using WebForum.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using WebForum.Domain.Entities;
+using WebForum.Application.Common.Constants;
 
 namespace WebForum.Infrastructure.Tests.Persistence;
 
@@ -26,6 +27,7 @@ public static class InMemoryApplicationDbContextFactory
 
         var user = new User
         {
+            Id = UserConstants.IntegrationTestUserId,
             Name = "test",
             Surname = "user",
             Email = "test@test.com",
@@ -52,7 +54,10 @@ public static class InMemoryApplicationDbContextFactory
                     ],
                     Likes =
                     [
-                        new Like()
+                        new Like
+                        {
+                            CreatedBy = UserConstants.IntegrationTestUserId
+                        }
                     ]
                 }
             ]

@@ -40,7 +40,9 @@
     <PackageReference Include="Serilog.Enrichers.Sensitive" Version="1.7.3" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-    <PackageReference Include="Serilog.Sinks.Fluentd" Version="0.4.0" /> 
+    <PackageReference Include="Serilog.Sinks.Fluentd" Version="0.4.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" /> 
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
 using WebForum.Api.Integration.Tests.Containers;
@@ -6,6 +7,7 @@ using WebForum.Infrastructure.Persistence;
 
 namespace WebForum.Api.Integration.Tests;
 
+[ExcludeFromCodeCoverage]
 public class WebApplicationFixture : IAsyncLifetime
 {
     private readonly CustomWebApplicationFactory<global::Program> _factory = new();

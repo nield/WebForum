@@ -7,9 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using WebForum.Api.Integration.Tests.Containers;
 using Microsoft.Extensions.Hosting;
 using WebForum.Application.Common.Constants;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebForum.Api.Integration.Tests;
 
+[ExcludeFromCodeCoverage]
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class
 {

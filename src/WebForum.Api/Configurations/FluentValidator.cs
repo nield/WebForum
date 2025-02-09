@@ -15,8 +15,5 @@ public static class FluentValidator
             Assembly.GetExecutingAssembly()
         })
         .AddFluentValidationAutoValidation();
-
-        //services.AddScoped<IValidator<CreatePostRequest>, CreatePostRequestValidator>();
-        //services.AddFluentValidationAutoValidation();
     }
 }

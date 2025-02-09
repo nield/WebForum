@@ -1,7 +1,9 @@
-﻿using DotNet.Testcontainers.Containers;
+﻿using System.Diagnostics.CodeAnalysis;
+using DotNet.Testcontainers.Containers;
 
 namespace WebForum.Api.Integration.Tests.Containers;
 
+[ExcludeFromCodeCoverage]
 internal abstract class BaseContainer<TContainer>
     where TContainer : class, new()
 {

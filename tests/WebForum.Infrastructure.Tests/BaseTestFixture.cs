@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
-using WebForum.Domain.Entities;
 
 namespace WebForum.Infrastructure.Tests;
 
