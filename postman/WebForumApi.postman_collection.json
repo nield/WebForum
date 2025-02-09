@@ -347,6 +347,30 @@
 					"response": []
 				},
 				{
+					"name": "Get Post By Id 2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8966/api/posts/{{StandardUser2_PostId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8966",
+							"path": [
+								"api",
+								"posts",
+								"{{StandardUser2_PostId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Comment 2",
 					"event": [
 						{
