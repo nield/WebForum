@@ -34,6 +34,7 @@ public class PostsController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
+    [Authorize(Roles = RoleConstants.Standard)]
     [ProducesResponseType(typeof(CreatePostResponse), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreatePost([FromBody]CreatePostRequest request, CancellationToken cancellationToken)
     {
@@ -94,6 +95,7 @@ public class PostsController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost("{id}/comments")]
+    [Authorize(Roles = RoleConstants.Standard)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateComment(long id, [FromBody] CreateCommentRequest request, CancellationToken cancellationToken)
     {
@@ -117,6 +119,7 @@ public class PostsController : ControllerBase
     /// <returns></returns>
     [HttpGet("{id}/comments")]
     [AllowAnonymous]
+    [Authorize(Roles = RoleConstants.Standard)]
     [ProducesResponseType(typeof(PaginatedListResponse<GetCommentsWithPaginationResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCommentsWithPagination(long id, [FromQuery] GetCommentsWithPaginationRequest request, CancellationToken cancellationToken)
     {
@@ -137,6 +140,7 @@ public class PostsController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost("{id}/likes/add")]
+    [Authorize(Roles = RoleConstants.Standard)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> AddLike(long id, CancellationToken cancellationToken)
     {
@@ -157,6 +161,7 @@ public class PostsController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost("{id}/likes/remove")]
+    [Authorize(Roles = RoleConstants.Standard)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RemoveLike(long id, CancellationToken cancellationToken)
     {
