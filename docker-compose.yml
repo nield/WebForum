@@ -7,6 +7,7 @@ services:
     environment:
       - IdentitySettings__ModeratorPassword=Mod3r@tor123!
       - IdentitySettings__StandardPassword=St@nd@rd123!
+      - ConnectionStrings__DefaultConnection=Server=host.docker.internal,8967;Database=WebForumDb;User Id=SA;Password=61tagstdgdtfsgkF!@;Encrypt=False;TrustServerCertificate=True
     ports:
       - "8966:80"
     networks:
