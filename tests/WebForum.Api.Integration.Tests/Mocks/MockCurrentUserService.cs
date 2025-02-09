@@ -5,5 +5,5 @@ namespace WebForum.Api.Integration.Tests.Mocks;
 
 public class MockCurrentUserService : ICurrentUserService
 {
-    public string? UserId => UserConstants.IntegrationTestUserId;
+    public string UserId => UserConstants.IntegrationTestUserId;
 }

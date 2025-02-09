@@ -10,9 +10,9 @@ public class WebApplicationFixture : IAsyncLifetime
 {
     private readonly CustomWebApplicationFactory<global::Program> _factory = new();
 
-    private string? _databaseConnectionString = null;
-    private Respawner? _respawner = null;
-    private HttpClient? _httpClient = null;
+    private string _databaseConnectionString = null;
+    private Respawner _respawner = null;
+    private HttpClient _httpClient = null;
 
     public HttpClient HttpClient
     {
