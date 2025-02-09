@@ -45,13 +45,13 @@ public class GetCommentsWithPaginationQueryHandler : IRequestHandler<GetComments
         if (request.FromDate.HasValue)
         {
             var fromDate = new DateTime(request.FromDate.Value, TimeOnly.MinValue, DateTimeKind.Utc);
-            querableComments = querableComments.Where(x => x.CreatedDateTime > fromDate);
+            querableComments = querableComments.Where(x => x.CreatedDateTime >= fromDate);
         }
 
         if (request.ToDate.HasValue)
         {
             var toDate = new DateTime(request.ToDate.Value, TimeOnly.MaxValue, DateTimeKind.Utc);
-            querableComments = querableComments.Where(x => x.CreatedDateTime < toDate);
+            querableComments = querableComments.Where(x => x.CreatedDateTime <= toDate);
         }
 
         var pagedData = await querableComments

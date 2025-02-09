@@ -1,0 +1,14 @@
+﻿global using Xunit;
+global using FluentAssertions;
+global using Moq;
+global using WebForum.Application.Common.Interfaces;
+global using WebForum.Domain.Entities;
+global using AutoMapper;
+global using FluentValidation;
+global using FizzWare.NBuilder;
+global using MockQueryable.Moq;
+global using FluentValidation.TestHelper;
+global using WebForum.Application.Common.Exceptions;
+global using Microsoft.Extensions.Logging;
+global using WebForum.Application.Common;
+global using WebForum.Application.Common.Interfaces.Repositories;

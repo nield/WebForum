@@ -10,5 +10,5 @@ public class GetPostsWithPaginationDto
     public int LikedBy { get; set; }
     public DateTimeOffset CreatedDateTime { get; set; }
 
-    public List<string> Tags { get; set; }
+    public List<string> Tags { get; set; } = [];
 }

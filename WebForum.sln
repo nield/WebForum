@@ -25,6 +25,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForum.Api.Integration.Tests", "tests\WebForum.Api.Integration.Tests\WebForum.Api.Integration.Tests.csproj", "{AA3F5390-DE69-4ED8-ACDF-DCFA1F270E2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForum.Application.Tests", "tests\WebForum.Application.Tests\WebForum.Application.Tests.csproj", "{C755DD98-FA10-4CC1-8EA1-6F56D62E3502}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{AA3F5390-DE69-4ED8-ACDF-DCFA1F270E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA3F5390-DE69-4ED8-ACDF-DCFA1F270E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA3F5390-DE69-4ED8-ACDF-DCFA1F270E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C755DD98-FA10-4CC1-8EA1-6F56D62E3502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C755DD98-FA10-4CC1-8EA1-6F56D62E3502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C755DD98-FA10-4CC1-8EA1-6F56D62E3502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C755DD98-FA10-4CC1-8EA1-6F56D62E3502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{ADF7553F-2706-4900-A958-930D65EF30F7} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{C3F24DCF-C66E-4493-B6A4-9F8F1D32A450} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{AA3F5390-DE69-4ED8-ACDF-DCFA1F270E2A} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
+		{C755DD98-FA10-4CC1-8EA1-6F56D62E3502} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}

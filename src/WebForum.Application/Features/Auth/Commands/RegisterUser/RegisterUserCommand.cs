@@ -1,5 +1,4 @@
-﻿using WebForum.Application.Common.Constants;
-using WebForum.Application.Common.Models;
+﻿using WebForum.Application.Common.Models;
 
 namespace WebForum.Application.Features.Auth.Commands.RegisterUser;
 

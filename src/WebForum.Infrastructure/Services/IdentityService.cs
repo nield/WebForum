@@ -61,4 +61,11 @@ public class IdentityService : IIdentityService
             throw new ValidationException(errorMessages);
         }
     }
+
+    public async Task<bool> UserHasRole(string userId, string roleName)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        return await _userManager.IsInRoleAsync(user, roleName);
+    }
 }

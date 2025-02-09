@@ -6,4 +6,5 @@ public interface IIdentityService
 {
     Task RegisterUser(RegisterUserDto register);
     Task AddRole(string roleName);
+    Task<bool> UserHasRole(string userId, string roleName);
 }

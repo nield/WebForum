@@ -8,7 +8,7 @@ public class GetPostsWithPaginationQuery : IRequest<PaginatedList<GetPostsWithPa
     public DateOnly? FromDate { get; set; }
     public DateOnly? ToDate { get; set; }
     public string Author { get; set; }
-    public List<string> Tags { get; set; }
+    public List<string> Tags { get; set; } = [];
 
     public int PageSize { get; set; } = 10;
     public int PageNumber { get; set; } = 1;
@@ -49,13 +49,13 @@ public class GetPostsWithPaginationQueryHandler : IRequestHandler<GetPostsWithPa
         if (request.FromDate.HasValue)
         {
             var fromDate = new DateTime(request.FromDate.Value, TimeOnly.MinValue, DateTimeKind.Utc);
-            querablePosts = querablePosts.Where(x => x.CreatedDateTime > fromDate);
+            querablePosts = querablePosts.Where(x => x.CreatedDateTime >= fromDate);
         }
 
         if (request.ToDate.HasValue)
         {
             var toDate = new DateTime(request.ToDate.Value, TimeOnly.MaxValue, DateTimeKind.Utc);
-            querablePosts = querablePosts.Where(x => x.CreatedDateTime < toDate);
+            querablePosts = querablePosts.Where(x => x.CreatedDateTime <= toDate);
         }
 
         var pagedData = await querablePosts.OrderBy(x => x.Title)
