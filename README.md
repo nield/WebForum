@@ -1,8 +1,6 @@
 [![.NET](https://github.com/nield/WebForum/actions/workflows/dotnet.yml/badge.svg)](https://github.com/nield/WebForum/actions/workflows/dotnet.yml)
 # WebForum
 
-Assessment project for a Backend Developer position.
-
 Project represents a web forum backend. Users can subscribe to the forum and make posts. Other functions include adding comments and also liking posts.
 
 Used clean architecture, ASPNET Core Api 8.0, AspNetCore Identity, Sql Server
